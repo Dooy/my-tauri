@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { ref ,onMounted} from 'vue'
-
+declare global {
+  interface Window {
+    __TAURI__: any; // 这里的 `any` 可以替换为适当的类型
+  }
+}
 defineProps<{ msg: string }>()
 
 const count = ref(0)
 const st= ref({isTauri:false})
 onMounted(()=>{
-  st.value.isTauri= typeof window !== 'undefined' && window.__TAURI__
+  st.value.isTauri= typeof window !== 'undefined' && typeof  window.__TAURI__ !== 'undefined'
 });
 </script>
 
